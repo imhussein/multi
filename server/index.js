@@ -56,6 +56,7 @@ app.post("/values", async (req, res) => {
   }
   redisClient.hset("values", index, "NOT YET");
   redisPublisher.publish("insert", index);
+  conn.query("INSERT INTO values (Number) VALUES($1)", [index]);
   res.send({ working: true });
 });
 
